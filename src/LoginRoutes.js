@@ -26,5 +26,4 @@ LoginRoutes.propTypes = {
   onLogin: PropTypes.func
 }
 
-
 export default LoginRoutes;

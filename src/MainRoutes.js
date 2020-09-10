@@ -23,11 +23,11 @@ const MainRoutes = ({token, onLogout}) => {
       new ApolloClient({
         uri: GRAPHQL_ENDPOINT,
         headers:  {
-          Authorization: `Bearer ${token}` 
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
     );
-  }, [token])
+  }, [])
 
   if (!client) return null;
 

@@ -37,8 +37,9 @@ const Login = ({ onLogin }) => {
           response_type: "id_token",
           scope: "openid profile email",
           redirect_uri: AuthSession.getRedirectUrl(),
+          prompt: 'login',
           nonce
-        })
+        }),
     }).then(result => {
       if (result.type === "success") {
         decodeToken(result.params.id_token);
@@ -52,9 +53,36 @@ const Login = ({ onLogin }) => {
     });
   };
 
+  const handleSignUpPress = async () => {
+    const nonce = await generateNonce();
+    AuthSession.startAsync({
+      authUrl:
+        `${AUTH_DOMAIN}/authorize?` +
+        queryString.stringify({
+          client_id: AUTH_CLIENT_ID,
+          response_type: "id_token",
+          scope: "openid profile email",
+          redirect_uri: AuthSession.getRedirectUrl(),
+          prompt: 'login',
+          mode: 'signUp',
+          nonce
+        })
+    }).then(result => {
+      if (result.type === "success") {
+        decodeToken(result.params.id_token);
+      } else if (result.params && result.params.error) {
+        Alert.alert(
+          "Error",
+          result.params.error_description ||
+            "Algo deu errado."  
+        );
+      }
+    });
+  };
+
   const decodeToken = token => {
     const decodedToken = jwtDecoder(token);
-    const { nonce, sub, email, name, exp } = decodedToken;
+    const { nonce, sub, name, exp } = decodedToken;
 
     SecureStore.getItemAsync(NONCE_KEY).then(storedNonce => {
       if (nonce == storedNonce) {
@@ -62,7 +90,6 @@ const Login = ({ onLogin }) => {
           ID_TOKEN_KEY,
           JSON.stringify({
             id: sub,
-            email,
             name,
             exp,
             token
@@ -94,7 +121,16 @@ const Login = ({ onLogin }) => {
         onPress={handleLoginPress}
       > 
         <Text style={styles.loginText}>
-          Entrar agora
+          Fazer login
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity 
+        style={styles.signUpButton}
+        onPress={handleSignUpPress}
+      > 
+        <Text style={styles.signUpText}>
+          Criar conta
         </Text>
       </TouchableOpacity>
 
@@ -163,14 +199,30 @@ const styles = StyleSheet.create({
     width: '60%',
     height: 45,
     zIndex: 2,
-    marginTop: 140,
+    marginTop: 100,
     alignItems: 'center',
     justifyContent: 'center'
   },
   loginText: {
     fontFamily: 'Bold', 
     color: '#231942', 
-    fontSize: 18
+    fontSize: responsiveFontSize(2.5)
+  },
+  signUpButton: {
+    borderRadius: 34,
+    borderWidth: 1,
+    backgroundColor: '#231942',
+    width: '60%',
+    height: 45,
+    zIndex: 2,
+    marginTop: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  signUpText: {
+    fontFamily: 'Bold', 
+    color: 'white', 
+    fontSize: responsiveFontSize(2.5)
   },
 
 });
