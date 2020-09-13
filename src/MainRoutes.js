@@ -12,22 +12,38 @@ import { GRAPHQL_ENDPOINT } from "./Config"
 
 import { Feed, Closet, Post, Search, Profile } from './screens'
 
+import { insertUsers } from '../data/mutations'
+
 const Tab = createBottomTabNavigator();
 
-const MainRoutes = ({token, onLogout}) => {
+const MainRoutes = ({token, onLogout, user}) => {
 
   const [client, setClient] = useState(null)
+  const {isNewUser} = user;
 
   useEffect(() => {
-    setClient(
-      new ApolloClient({
-        uri: GRAPHQL_ENDPOINT,
-        headers:  {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-    );
+    const {id, name, isNewUser, username} = user;
+  
+    const client = new ApolloClient({
+      uri: GRAPHQL_ENDPOINT,
+      headers:  {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+
+    if (isNewUser) {       
+      client.mutate({
+        mutation: insertUsers,
+        variables: {id, name, username}
+      });
+    }
+
+    setClient(client)
   }, [])
+
+  if (isNewUser) {
+    console.log('novo usuario')
+  }
 
   if (!client) return null;
 
@@ -92,7 +108,7 @@ const MainRoutes = ({token, onLogout}) => {
               )
             }}
           >
-            {() => <Profile onLogout={onLogout} />}
+            {() => <Profile onLogout={onLogout} user={user}/>}
           </Tab.Screen>
           
         </Tab.Navigator>
@@ -103,7 +119,8 @@ const MainRoutes = ({token, onLogout}) => {
 
 MainRoutes.propTypes = {
   token: PropTypes.string.isRequired,
-  onLogout: PropTypes.func
+  onLogout: PropTypes.func,
+  user: PropTypes.object.isRequired
 }
 
 export default MainRoutes;

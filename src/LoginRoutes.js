@@ -15,7 +15,7 @@ const LoginRoutes = ({onLogin}) => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="Login" options={{headerShown: false}}>
-          {() => <Login onLogin={onLogin} />}
+          {() => <Login onLogin={onLogin}/>}
         </Stack.Screen>
       </Stack.Navigator>
   </NavigationContainer>

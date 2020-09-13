@@ -12,29 +12,27 @@ import * as SecureStore from "expo-secure-store";
 import { useFonts, Muli_300Light, Muli_400Regular, Muli_500Medium, Muli_600SemiBold, Muli_700Bold,
 } from '@expo-google-fonts/muli'
 
-const RCTNetworking = require('react-native/Libraries/Network/RCTNetworking');
-
 export default function App() {
 
   const [token, setToken] = useState(null);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
     handleLogin();
   }, []);
 
-  const handleLogin = () => {
+  const handleLogin = (isNewUser = false, username = "") => {
     SecureStore.getItemAsync(ID_TOKEN_KEY).then(session => {
       if (session) {
         const sessionObj = JSON.parse(session);
-        const { exp, token } = sessionObj;
+        const { exp, token, id, name } = sessionObj;
         if (exp > Math.floor(new Date().getTime() / 1000)) {
           setToken(token)
+          setUser({id, name, isNewUser, username})
         }
       }
     });
   }
-
-  console.log(ID_TOKEN_KEY)
 
   let [fontsLoaded, error] = useFonts({
     'Regular': Muli_400Regular,
@@ -53,9 +51,10 @@ export default function App() {
 
   return (
     <SafeAreaProvider>
-      {token ?
+      {token && user ?
         <MainRoutes
         token={token}
+        user={user}
         onLogout={() => {
           setToken(null)
           SecureStore.deleteItemAsync(ID_TOKEN_KEY)

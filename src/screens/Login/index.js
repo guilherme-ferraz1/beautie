@@ -12,7 +12,7 @@ import { responsiveFontSize } from "react-native-responsive-dimensions";
 
 import PropTypes from 'prop-types';
 
-import { AUTH_CLIENT_ID, AUTH_DOMAIN, ID_TOKEN_KEY, NONCE_KEY } from '../../Config';
+import { AUTH_CLIENT_ID, AUTH_DOMAIN, ID_TOKEN_KEY, NONCE_KEY, AUTH_NAMESPACE } from '../../Config';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -61,7 +61,7 @@ const Login = ({ onLogin }) => {
         queryString.stringify({
           client_id: AUTH_CLIENT_ID,
           response_type: "id_token",
-          scope: "openid profile email",
+          scope: "openid profile email app_metadata",
           redirect_uri: AuthSession.getRedirectUrl(),
           prompt: 'login',
           mode: 'signUp',
@@ -92,11 +92,11 @@ const Login = ({ onLogin }) => {
             id: sub,
             name,
             exp,
-            token
+            token,
           })
-        ).then(onLogin);
+        ).then(() => onLogin(decodedToken[AUTH_NAMESPACE].isNewUser, decodedToken["https://my-domain.my-company.com/app_metadata"].username));
       } else {
-        Alert.alert("Error", "Nonces don't match");
+        Alert.alert("Algo deu errado, feche o app");
         return;
       }
     });
