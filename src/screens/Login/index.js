@@ -8,7 +8,7 @@ import * as SecureStore from 'expo-secure-store';
 import jwtDecoder from 'jwt-decode';
 import queryString from 'query-string';
 
-import { responsiveFontSize } from "react-native-responsive-dimensions";
+import { responsiveFontSize, responsiveHeight} from "react-native-responsive-dimensions";
 
 import PropTypes from 'prop-types';
 
@@ -96,7 +96,7 @@ const Login = ({ onLogin }) => {
           })
         ).then(() => onLogin(decodedToken[AUTH_NAMESPACE].isNewUser, decodedToken["https://my-domain.my-company.com/app_metadata"].username));
       } else {
-        Alert.alert("Algo deu errado, feche o app");
+        Alert.alert("Algo deu errado, reinicie o app e tente novamente.");
         return;
       }
     });
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
     zIndex: 2, 
     color: '#231942', 
     fontSize: responsiveFontSize(9), 
-    marginTop: 150
+    marginTop: responsiveHeight(22)
   },
   loginButton: {
     borderRadius: 34,
@@ -197,9 +197,9 @@ const styles = StyleSheet.create({
     borderColor: '#231942',
     backgroundColor: 'white',
     width: '60%',
-    height: 45,
+    height: responsiveHeight(7),
     zIndex: 2,
-    marginTop: 100,
+    marginTop: responsiveHeight(14),
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -213,9 +213,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: '#231942',
     width: '60%',
-    height: 45,
+    height: responsiveHeight(7),
     zIndex: 2,
-    marginTop: 15,
+    marginTop: responsiveHeight(2),
     alignItems: 'center',
     justifyContent: 'center'
   },

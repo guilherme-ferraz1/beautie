@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Image } from 'react-native';
+import { Image, Text } from 'react-native';
 
 import PropTypes from "prop-types";
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -52,12 +52,17 @@ const MainRoutes = ({token, onLogout, user}) => {
       <NavigationContainer>
         <Tab.Navigator
           tabBarOptions={{
-            activeTintColor: 'blue',
+            activeTintColor: '#231942',
             inactiveTintColor: 'gray',
-            showLabel: false,
+            labelStyle: {
+              fontSize: 10,
+              margin: 0,
+              padding: 0,
+              fontFamily: 'Regular'
+            },
           }}
         >
-          <Tab.Screen name="Feed" component={Feed} 
+          <Tab.Screen name="Ínicio" component={Feed} 
             options={{
               tabBarIcon: ({color}) => (
                 <Image
@@ -67,7 +72,7 @@ const MainRoutes = ({token, onLogout, user}) => {
               )
             }}
           />
-          <Tab.Screen name="Search" component={Search}
+          <Tab.Screen name="Procurar" component={Search}
             options={{
               tabBarIcon: ({color}) => (
                 <Image
@@ -77,7 +82,7 @@ const MainRoutes = ({token, onLogout, user}) => {
               )
             }}
           />
-          <Tab.Screen name="Post" component={Post}
+          <Tab.Screen name="Compartilhar" component={Post}
             options={{
               tabBarIcon: ({color}) => (
                 <Image
@@ -98,7 +103,7 @@ const MainRoutes = ({token, onLogout, user}) => {
             }}
           />
           <Tab.Screen 
-            name="Profile"
+            name="Perfil"
             options={{
               tabBarIcon: ({color}) => (
                 <Image
@@ -119,7 +124,7 @@ const MainRoutes = ({token, onLogout, user}) => {
 
 MainRoutes.propTypes = {
   token: PropTypes.string.isRequired,
-  onLogout: PropTypes.func,
+  onLogout: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired
 }
 

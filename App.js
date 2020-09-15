@@ -21,7 +21,7 @@ export default function App() {
     handleLogin();
   }, []);
 
-  const handleLogin = (isNewUser = false, username = "") => {
+  const handleLogin = (isNewUser = false, username) => {
     SecureStore.getItemAsync(ID_TOKEN_KEY).then(session => {
       if (session) {
         const sessionObj = JSON.parse(session);
