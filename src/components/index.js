@@ -1,5 +1,7 @@
-import WelcomeSlider from './WelcomeSlider';
+import WelcomeCarousel from './WelcomeCarousel';
+import Slider from './Slider'
 
 export {
-  WelcomeSlider
+  WelcomeCarousel, 
+  Slider
 };

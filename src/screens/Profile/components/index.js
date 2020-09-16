@@ -1,7 +1,7 @@
 import Stats from './Stats'
-import Slider from './Slider'
+import SequencyItem from './SequencyItem'
 
 export {
   Stats,
-  Slider
+  SequencyItem
 }

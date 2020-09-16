@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
 
-import { Stats, Slider } from './components';
+import { Stats, SequencyItem } from './components';
+
+import { Slider } from './../../components'
 
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import PropTypes from 'prop-types';
 
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
-
 
 export default class Profile extends Component {
   constructor(props) {
@@ -26,13 +27,13 @@ export default class Profile extends Component {
 
     if (selectedTab === 0) {
       return (
-        <Text> Publicacoes </Text>
+        <Text> Recomendados </Text>
       )
     }
 
     if (selectedTab === 1) {
       return (
-        <Text> Recomendados </Text>
+        <SequencyItem/>
       )
     }
   }
@@ -44,7 +45,7 @@ export default class Profile extends Component {
 
     return (
       <SafeAreaView style={styles.container}>
-        <StatusBar style="light"/>
+        <StatusBar style="dark"/>
           <ScrollView style={styles.headerContainer}>
             <View style={{marginTop: responsiveHeight(4)}}>
               <Image 
@@ -61,6 +62,8 @@ export default class Profile extends Component {
             <Slider
               selectedTab={selectedTab}
               onChange={(tabIndex) => this.setState({selectedTab: tabIndex})}
+              leftText={'Recomendados'}
+              rightText={'Sequências'}
             />
 
             {this.renderTabs()}
@@ -72,23 +75,18 @@ export default class Profile extends Component {
 
 Profile.propTypes = {
   onLogout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired
 };
 
 
 const styles = StyleSheet.create({
   container: {
     alignItems: "center",
-    backgroundColor: '#5E548E',
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0
+    backgroundColor: 'white',
+    flex: 1
     },
   headerContainer: {
     flex: 1,
-    marginTop: responsiveHeight(3),
+    marginTop: responsiveHeight(1),
     width: '100%' ,
     backgroundColor: 'white',
     borderTopStartRadius: 25,
@@ -96,10 +94,10 @@ const styles = StyleSheet.create({
   },
   profileImage: {
     alignSelf: 'center',
-    borderRadius: 20,
+    borderRadius: 10,
     height: responsiveHeight(15),
     width: responsiveWidth(28),
-    resizeMode: 'cover'
+    resizeMode: 'cover',
   },
   settings: {
     position: 'absolute',

@@ -4,6 +4,8 @@ import { Transition, Transitioning } from "react-native-reanimated";
 
 import { responsiveFontSize, responsiveHeight, responsiveWidth } from "react-native-responsive-dimensions";
 
+import PropTypes from 'prop-types';
+
 const { width } = Dimensions.get("window");
 
 class Slider extends Component {
@@ -29,7 +31,7 @@ class Slider extends Component {
 
   render() {
 
-    const {selectedTab} = this.props;
+    const {selectedTab, leftText, rightText} = this.props;
 
     return (
       <Transitioning.View
@@ -37,15 +39,16 @@ class Slider extends Component {
         transition={this.transition}
         style={{ flex: 1 }}
       >
-        <View style={{ ...styles.tabContainer }}>
+        <View style={styles.tabContainer}>
           <View
             style={{
               position: "absolute",
-              height: responsiveHeight(15),
+              height: responsiveHeight(6),
               width: (width - 60) / 2,
+              borderRadius: 10,
               backgroundColor: "#9F86C0",
               left: selectedTab == 0 ? 0 : null,
-              right: selectedTab == 1 ? 0 : null
+              right: selectedTab == 1 ? 0 : null,
             }}
           />
 
@@ -54,7 +57,7 @@ class Slider extends Component {
             onPress={() => this.selectTab(0)}
           >
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center", alignItems: 'center' }}>
-              <Text style={styles.text}> Publicações </Text>
+              <Text style={styles.text}> {leftText} </Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -62,7 +65,7 @@ class Slider extends Component {
             onPress={() => this.selectTab(1)}
           >
             <View style={{ flex: 1, alignItems: "center", justifyContent: "center", alignItems: 'center'}}>
-              <Text style={styles.text}> Recomendados </Text>
+              <Text style={styles.text}> {rightText} </Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -71,6 +74,14 @@ class Slider extends Component {
     );
   }
 }
+
+Slider.propTypes = {
+  rightText: PropTypes.string.isRequired,
+  leftText: PropTypes.string.isRequired,
+  selectedTab: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
 export default Slider;
 
 const styles = StyleSheet.create({
@@ -83,11 +94,18 @@ const styles = StyleSheet.create({
     height: responsiveHeight(6),
     flexDirection: "row",
     marginTop: responsiveHeight(3),
-    borderRadius: 30,
+    borderRadius: 10,
     width: width - responsiveWidth(16),
     alignSelf: 'center',
     backgroundColor: "white",
-    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    elevation: 3,
   },
   text: {
     fontFamily: 'SemiBold', 

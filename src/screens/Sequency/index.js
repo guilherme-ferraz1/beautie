@@ -4,7 +4,7 @@ import { View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-export default class index extends Component {
+export default class Sequency extends Component {
   constructor(props) {
     super(props);
     this.state = {

@@ -7,19 +7,24 @@ import ApolloClient from "apollo-boost";
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 
-import { GRAPHQL_ENDPOINT } from "./Config"
+import { GRAPHQL_ENDPOINT } from "./Config";
 
-import { Feed, Closet, Post, Search, Profile } from './screens'
+import { Feed, Closet, Sequency, Search, Profile } from './screens';
+import { WelcomeCarousel } from './components';
 
 import { insertUsers } from '../data/mutations'
+
+const Carousel = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
 const MainRoutes = ({token, onLogout, user}) => {
 
   const [client, setClient] = useState(null)
-  const {isNewUser} = user;
+  const [carousel, setCarousel] = useState(false)
+  var {isNewUser} = user;
 
   useEffect(() => {
     const {id, name, isNewUser, username} = user;
@@ -36,13 +41,22 @@ const MainRoutes = ({token, onLogout, user}) => {
         mutation: insertUsers,
         variables: {id, name, username}
       });
+      setCarousel(true)
     }
 
     setClient(client)
   }, [])
 
-  if (isNewUser) {
-    console.log('novo usuario')
+  if (isNewUser && carousel) {
+    return (
+      <NavigationContainer>
+        <Carousel.Navigator>
+          <Tab.Screen name="Perfil" options={{headerShown: false}}>
+              {() => <WelcomeCarousel onChange={() => setCarousel(false)}/>}
+            </Tab.Screen>
+        </Carousel.Navigator>
+      </NavigationContainer>
+    )
   }
 
   if (!client) return null;
@@ -55,9 +69,6 @@ const MainRoutes = ({token, onLogout, user}) => {
             activeTintColor: '#231942',
             inactiveTintColor: 'gray',
             labelStyle: {
-              fontSize: 10,
-              margin: 0,
-              padding: 0,
               fontFamily: 'Regular'
             },
           }}
@@ -67,7 +78,7 @@ const MainRoutes = ({token, onLogout, user}) => {
               tabBarIcon: ({color}) => (
                 <Image
                   source={require('./../assets/home-icon.png')}
-                  style={{width: 25, height: 25, tintColor: color,}}
+                  style={{width: 23, height: 23, tintColor: color,}}
                 />
               )
             }}
@@ -77,17 +88,7 @@ const MainRoutes = ({token, onLogout, user}) => {
               tabBarIcon: ({color}) => (
                 <Image
                   source={require('./../assets/search-icon.png')}
-                  style={{width: 23, height: 23, tintColor: color,}}
-                />
-              )
-            }}
-          />
-          <Tab.Screen name="Compartilhar" component={Post}
-            options={{
-              tabBarIcon: ({color}) => (
-                <Image
-                  source={require('./../assets/post-icon.png')}
-                  style={{width: 23, height: 23, tintColor: color,}}
+                  style={{width: 21, height: 21, tintColor: color,}}
                 />
               )
             }}
@@ -102,13 +103,23 @@ const MainRoutes = ({token, onLogout, user}) => {
               )
             }}
           />
+          <Tab.Screen name="Sequências" component={Sequency}
+            options={{
+              tabBarIcon: ({color}) => (
+                <Image
+                  source={require('./../assets/sequency-icon.png')}
+                  style={{width: 25, height: 25, tintColor: color,}}
+                />
+              )
+            }}
+          />
           <Tab.Screen 
             name="Perfil"
             options={{
               tabBarIcon: ({color}) => (
                 <Image
                   source={require('./../assets/user-icon.png')}
-                  style={{width: 23, height: 23, tintColor: color,}}
+                  style={{width: 21, height: 21, tintColor: color,}}
                 />
               )
             }}

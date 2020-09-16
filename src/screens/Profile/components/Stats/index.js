@@ -28,17 +28,6 @@ export default class Profile extends Component {
 
         <View style={styles.stat}>
           <Text style={styles.statText}>
-            12
-          </Text>
-          <Text style={styles.statSubText}>
-            Publicações
-          </Text>
-        </View>
-
-        <Image source={require('./../../../../../assets/line.png')}/>
-
-        <View style={styles.stat}>
-          <Text style={styles.statText}>
             207
           </Text>
           <Text style={styles.statSubText}>
