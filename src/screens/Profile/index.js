@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, Button, StyleSheet, ScrollView, Image} from 'react-native';
 
-import { Stats, SequencyItem } from './components';
+import { Stats, SequencyItem, ProductItem } from './components';
 
 import { Slider } from './../../components'
 
@@ -25,20 +25,20 @@ export default class Profile extends Component {
 
     const {selectedTab} = this.state;
 
-    if (selectedTab === 0) {
+    if (selectedTab === 1) {
       return (
-        <Text> Recomendados </Text>
+        <ProductItem/>
       )
     }
 
-    if (selectedTab === 1) {
+    if (selectedTab === 0) {
       return (
         <SequencyItem/>
       )
     }
   }
 
-  render() {    
+  render() { 
 
     var {onLogout} = this.props;
     const {selectedTab} = this.state;
@@ -62,8 +62,8 @@ export default class Profile extends Component {
             <Slider
               selectedTab={selectedTab}
               onChange={(tabIndex) => this.setState({selectedTab: tabIndex})}
-              leftText={'Recomendados'}
-              rightText={'Sequências'}
+              leftText={'Sequências'}
+              rightText={'Recomendados'}
             />
 
             {this.renderTabs()}
