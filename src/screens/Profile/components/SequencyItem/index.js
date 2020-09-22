@@ -49,7 +49,6 @@ index.propTypes = {
 const styles = StyleSheet.create({
   container: {
     marginTop: responsiveHeight(2),
-
   },
   item: {
     marginTop: responsiveHeight(3),
