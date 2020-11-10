@@ -31,8 +31,8 @@ export default class Sequencys extends Component {
 }
 
 Sequencys.propTypes = {
-  onPress = PropTypes.func.isRequired,
-  userSequencys = PropTypes.object.isRequired
+  onPress: PropTypes.func.isRequired,
+  userSequencys: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

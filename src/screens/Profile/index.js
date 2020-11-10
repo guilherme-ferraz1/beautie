@@ -83,14 +83,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: 'white',
     flex: 1
-    },
+  },
   headerContainer: {
     flex: 1,
     marginTop: responsiveHeight(1),
     width: '100%' ,
     backgroundColor: 'white',
-    borderTopStartRadius: 25,
-    borderTopEndRadius: 25,
   },
   profileImage: {
     alignSelf: 'center',

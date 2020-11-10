@@ -31,8 +31,8 @@ export default class Products extends Component {
 }
 
 Products.propTypes = {
-  onPress = PropTypes.func.isRequired,
-  userProducts = PropTypes.object.isRequired
+  onPress: PropTypes.func.isRequired,
+  userProducts: PropTypes.object.isRequired
 };
 
 const styles = StyleSheet.create({

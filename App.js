@@ -9,7 +9,7 @@ import MainRoutes from './src/MainRoutes'
 import { ID_TOKEN_KEY } from "./src/Config";
 import * as SecureStore from "expo-secure-store";
 
-import { useFonts, Muli_300Light, Muli_400Regular, Muli_500Medium, Muli_600SemiBold, Muli_700Bold,
+import { useFonts, Muli_300Light, Muli_400Regular, Muli_500Medium, Muli_600SemiBold, Muli_700Bold, Muli_800ExtraBold
 } from '@expo-google-fonts/muli'
 
 export default function App() {
@@ -40,6 +40,7 @@ export default function App() {
     'Medium': Muli_500Medium,
     'SemiBold': Muli_600SemiBold,
     'Bold': Muli_700Bold,
+    'ExtraBold': Muli_800ExtraBold,
     'Title': require('./assets/fonts/proxima-nova-black.ttf')
   })
 
