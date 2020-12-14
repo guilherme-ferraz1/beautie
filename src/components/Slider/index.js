@@ -46,7 +46,8 @@ class Slider extends Component {
               height: responsiveHeight(6),
               width: (width - 60) / 2,
               borderRadius: 10,
-              backgroundColor: "#9F86C0",
+              borderColor: "#9F86C0",
+              borderWidth: 2,
               left: selectedTab == 0 ? 0 : null,
               right: selectedTab == 1 ? 0 : null,
             }}

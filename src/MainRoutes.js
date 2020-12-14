@@ -11,12 +11,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { GRAPHQL_ENDPOINT } from "./Config";
 
-import { Feed, Closet, Sequency, Search, Profile } from './screens';
+import { Feed, Closet, Sequency, Search, Profile, ExpandSequency, NewSequency } from './screens';
 import { WelcomeCarousel } from './components';
 
 import { insertUsers } from '../data/mutations'
 
 const Carousel = createStackNavigator();
+const SequencyStack = createStackNavigator();
 
 const Tab = createBottomTabNavigator();
 
@@ -46,6 +47,21 @@ const MainRoutes = ({token, onLogout, user}) => {
 
     setClient(client)
   }, [])
+
+  const sequencyStack = () => {
+    return (
+      <SequencyStack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <SequencyStack.Screen name="Sequencys" component={Sequency} />             
+        <SequencyStack.Screen name="Expand" component={ExpandSequency} />
+        <SequencyStack.Screen name="New" component={NewSequency} />
+
+      </SequencyStack.Navigator>
+    )
+  }
 
   if (isNewUser && carousel) {
     return (
@@ -103,7 +119,7 @@ const MainRoutes = ({token, onLogout, user}) => {
               )
             }}
           />
-          <Tab.Screen name="Sequências" component={Sequency}
+          <Tab.Screen name="Sequências" component={sequencyStack}
             options={{
               tabBarIcon: ({color}) => (
                 <Image

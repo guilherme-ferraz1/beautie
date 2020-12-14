@@ -19,6 +19,7 @@ export default class Sequency extends Component {
   renderTabs() {
 
     const {selectedTab} = this.state;
+    const {navigate} = this.props.navigation
 
     if (selectedTab === 1) {
       return (
@@ -29,13 +30,14 @@ export default class Sequency extends Component {
 
     if (selectedTab === 0) {
       return (
-        <MySequencys/>
+        <MySequencys navigate={navigate}/>
       )
     }
   }
 
   render() { 
 
+    const {navigate} = this.props.navigation
     var {selectedTab} = this.state
 
     return (
@@ -43,7 +45,7 @@ export default class Sequency extends Component {
         <ScrollView>
           <View style={styles.header}>
             <Text style={styles.title}> Sequências </Text>
-            <Ionicons name="ios-add-circle" size={44} color="#5E548E"/>
+            <Ionicons name="ios-add-circle" size={44} color="#5E548E" onPress={() => navigate('New')}/>
           </View>
 
           <Slider

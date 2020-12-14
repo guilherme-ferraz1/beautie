@@ -12,9 +12,12 @@ export default class MySequencys extends Component {
   }
 
   render() {
+
+    const { navigate } = this.props
+
     return (
       <View style={styles.container}> 
-        <TouchableOpacity style={styles.item}>
+        <TouchableOpacity style={styles.item} onPress={() => navigate('Expand')}>
           <Image style={styles.itemImage} source={require('./../../../../../assets/maquiagem.jpg')}/> 
           <View style={styles.itemTitle}>
             <Text style={styles.itemText}>Maquiagem básica para o ano novo. </Text>              

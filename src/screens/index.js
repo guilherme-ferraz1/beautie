@@ -4,6 +4,8 @@ import Feed from './Feed';
 import Sequency from './Sequency';
 import Search from './Search';
 import Profile from './Profile';
+import ExpandSequency from './ExpandSequency';
+import NewSequency from './NewSequency';
 
 export {
   Login,
@@ -11,5 +13,7 @@ export {
   Closet,
   Sequency,
   Search,
-  Profile
+  Profile,
+  ExpandSequency,
+  NewSequency  
 };
